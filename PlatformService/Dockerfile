@@ -1,4 +1,5 @@
 # Etap 1: Buduj aplikację
+# Etap budowania
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build-env
 WORKDIR /app
 
@@ -6,11 +7,12 @@ WORKDIR /app
 COPY *.csproj ./
 RUN dotnet restore
 
+# Etap 2: Utwórz ostateczny obraz
 # Skopiuj resztę kodu źródłowego i opublikuj aplikację
 COPY . ./
 RUN dotnet publish -c Release -o out
 
-# Etap 2: Utwórz ostateczny obraz
+# Etap uruchamiania
 FROM mcr.microsoft.com/dotnet/aspnet:7.0
 WORKDIR /app
 
